@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-int Max(int Arr[],int size)
+int Max(int Arr[],int size) 
 {
 	int temp;
 	for(int i=0;i<size;i++)
