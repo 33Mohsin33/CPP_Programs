@@ -28,7 +28,7 @@ void count_sort(int Arr[],int size)
 	}
 	for(int i=1;i<size;i++)
 	{
-		cout<<C[i];
+		cout<<C[i]<<" ";
 	}
 }
 int main()
