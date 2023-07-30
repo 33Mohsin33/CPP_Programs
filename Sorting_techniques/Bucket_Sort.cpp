@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 
-// Helper function to sort each bucket (using insertion sort in this example)
+// Helper function to sort each bucket (using insertion sort in this example) 
 void insertionSort(float bucket[], int size) {
     for (int i = 1; i < size; ++i) {
         float key = bucket[i];
