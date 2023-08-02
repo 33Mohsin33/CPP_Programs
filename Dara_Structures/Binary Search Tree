@@ -1,0 +1,157 @@
+#include<iostream>
+using namespace std;
+
+class Node
+{
+public:
+	int val;
+	Node *Left = NULL, *Right = NULL;
+} *Root = NULL, *Curr = NULL;
+
+Node *Max(Node *mRoot)
+{
+	if (mRoot->Right == NULL)
+		return mRoot;
+	else
+		return Max(mRoot->Right);
+}
+
+void InsertNode(int val, Node *pRoot)
+{
+	if (val > pRoot->val)
+	{
+		if (pRoot->Right == NULL)
+			pRoot->Right = Curr;
+		else
+			InsertNode(val, pRoot->Right);
+	}
+	else
+	{
+		if (pRoot->Left == NULL)
+			pRoot->Left = Curr;
+		else
+			InsertNode(val, pRoot->Left);
+	}
+}
+
+void Entry()
+{
+	Curr = new (Node);
+	if (Curr != NULL)
+	{
+		cout << "\nEnter Value: ";
+		cin >> Curr->val;
+		if (Root == NULL)
+		{
+			Root = Curr;
+			cout << "Done\n";
+		}
+		else
+		{
+			InsertNode(Curr->val, Root);
+			cout << "\nDone\n";
+		}
+	}
+	else
+	{
+		cout << "Memory Out Of Space!";
+	}
+}
+
+void Assending(Node *pRoot)
+{
+	if (pRoot == NULL)
+		return;
+	Assending(pRoot->Left);
+	cout << pRoot->val << ", ";
+	Assending(pRoot->Right);
+}
+
+void Desending(Node *pRoot)
+{
+	if (pRoot == NULL)
+		return;
+	Desending(pRoot->Right);
+	cout << pRoot->val << ", ";
+	Desending(pRoot->Left);
+}
+
+
+Node *DeleteNode(Node *dRoot, int val)
+{
+	if (dRoot == NULL)
+		return dRoot;
+
+	if (val < dRoot->val)
+		dRoot->Left = DeleteNode(dRoot->Left, val);
+	else if (val > dRoot->val)
+		dRoot->Right = DeleteNode(dRoot->Right, val);
+	else
+	{
+		if (dRoot->Left == NULL)
+		{
+			Node *temp = dRoot->Right;
+			delete dRoot;
+			return temp;
+		}
+		else if (dRoot->Right == NULL)
+		{
+			Node *temp = dRoot->Left;
+			delete dRoot;
+			return temp;
+		}
+
+		Node *temp = Max(dRoot->Left);
+		dRoot->val = temp->val;
+		dRoot->Left = DeleteNode(dRoot->Left, temp->val);
+	}
+	return dRoot;
+}
+
+void Deletion()
+{
+	if (Root == NULL)
+	{
+		cout << "\nTree is empty. Cannot delete.";
+		return;
+	}
+
+	int val;
+	cout << "\nEnter the value to delete: ";
+	cin >> val;
+	Root = DeleteNode(Root, val);
+	cout << "Done\n";
+}
+
+int main()
+{
+	while (true)
+	{
+		cout << "\n1.Entry";
+		cout << "\n2.Deletion";
+		cout << "\n3.Assending";
+		cout << "\n4.Decending\n";
+		int ch;
+		cin >> ch;
+		switch (ch)
+		{
+		case 1:
+			Entry();
+			break;
+		case 2:
+			Deletion();
+			break;
+		case 3:
+			if(Root==NULL)
+			cout<<"None\n";
+			Assending(Root);
+			
+			break;
+		case 4:
+			if(Root==NULL)
+			cout<<"None\n";
+			Desending(Root);
+			break;
+		}
+	}
+}
